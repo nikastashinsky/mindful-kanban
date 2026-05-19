@@ -1027,6 +1027,40 @@
             margin-bottom: 10px;
         }
 
+        /* ── Journal collapsible ── */
+        .dp-journal-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 16px 0 16px;
+            border-bottom: 1.5px dashed #ede9e5;
+            user-select: none;
+        }
+
+        .dp-journal-toggle .dp-label {
+            margin-bottom: 0;
+        }
+
+        .dp-journal-caret {
+            font-size: 0.65em;
+            color: #c4bcb4;
+            transition: transform 0.2s;
+            margin-left: auto;
+        }
+
+        .dp-journal-toggle.open .dp-journal-caret {
+            transform: rotate(90deg);
+        }
+
+        .dp-journal-body {
+            display: none;
+        }
+
+        .dp-journal-body.open {
+            display: block;
+        }
+
         /* ── Frog section ── */
         .dp-frog-header {
             display: flex;
@@ -1820,6 +1854,7 @@
         body.dark .dp-fullscreen-btn { color: #5a5450; }
         body.dark .dp-fullscreen-btn:hover { color: #a09890; }
         body.dark .dp-section { border-color: #3a3632; }
+        body.dark .dp-journal-toggle { border-color: #3a3632; }
         body.dark .dp-label { color: #7a7068; }
         body.dark .dp-frog-hint { color: #5a5450; }
         body.dark .dp-frog-input { background: #322e2b; border-color: #3a3632; color: #e8e4de; }
@@ -2266,56 +2301,6 @@
                 </div>
             </div>
 
-            <!-- Brain dump -->
-            <div class="dp-section">
-                <div class="dp-label">brain dump</div>
-                <textarea class="dp-brain-dump" id="dpBrainDump"
-                          placeholder="everything on your mind — get it out..."
-                          oninput="autoResizeBrainDump(this); saveBrainDump(this.value)"></textarea>
-            </div>
-
-            <!-- Tasklist -->
-            <div class="dp-section">
-                <div class="dp-label">tasklist</div>
-                <div id="dpTaskList"></div>
-                <button class="dp-add-task" onclick="addDailyTask()">+ add task</button>
-            </div>
-
-            <!-- Gratefuls -->
-            <div class="dp-section">
-                <div class="dp-label">grateful for</div>
-                <div class="dp-grateful-row">
-                    <span class="dp-grateful-num">1</span>
-                    <input class="dp-grateful-input" id="dpGrateful0" type="text"
-                           placeholder="something good..." oninput="saveGrateful(0,this.value)">
-                </div>
-                <div class="dp-grateful-row">
-                    <span class="dp-grateful-num">2</span>
-                    <input class="dp-grateful-input" id="dpGrateful1" type="text"
-                           placeholder="something good..." oninput="saveGrateful(1,this.value)">
-                </div>
-                <div class="dp-grateful-row">
-                    <span class="dp-grateful-num">3</span>
-                    <input class="dp-grateful-input" id="dpGrateful2" type="text"
-                           placeholder="something good..." oninput="saveGrateful(2,this.value)">
-                </div>
-            </div>
-
-            <!-- Puzzle -->
-            <div class="dp-section">
-                <div class="dp-label">anything puzzling you today?</div>
-                <div class="dp-puzzle-yn">
-                    <button class="dp-puzzle-btn" id="dpPuzzleYes" onclick="setPuzzle(true)">yes</button>
-                    <button class="dp-puzzle-btn" id="dpPuzzleNo" onclick="setPuzzle(false)">no</button>
-                </div>
-                <div id="dpPuzzleInputWrap" style="display:none">
-                    <div class="dp-grateful-row">
-                        <input class="dp-grateful-input" id="dpPuzzleInput" type="text"
-                               placeholder="what's on your mind?" oninput="savePuzzleText(this.value)">
-                    </div>
-                </div>
-            </div>
-
             <!-- Exercise -->
             <div class="dp-section">
                 <div class="dp-label">exercise today?</div>
@@ -2323,6 +2308,65 @@
                     <button class="dp-puzzle-btn" id="dpExerciseYes" onclick="setExercise(true)">yes</button>
                     <button class="dp-puzzle-btn" id="dpExerciseNo" onclick="setExercise(false)">no</button>
                 </div>
+            </div>
+
+            <!-- Journal collapsible -->
+            <div class="dp-journal-toggle" id="dpJournalToggle" onclick="toggleJournalSection()">
+                <div class="dp-label">journal</div>
+                <span class="dp-journal-caret">▶</span>
+            </div>
+            <div class="dp-journal-body" id="dpJournalBody">
+
+                <!-- Brain dump -->
+                <div class="dp-section">
+                    <div class="dp-label">brain dump</div>
+                    <textarea class="dp-brain-dump" id="dpBrainDump"
+                              placeholder="everything on your mind — get it out..."
+                              oninput="autoResizeBrainDump(this); saveBrainDump(this.value)"></textarea>
+                </div>
+
+                <!-- Tasklist -->
+                <div class="dp-section">
+                    <div class="dp-label">tasklist</div>
+                    <div id="dpTaskList"></div>
+                    <button class="dp-add-task" onclick="addDailyTask()">+ add task</button>
+                </div>
+
+                <!-- Gratefuls -->
+                <div class="dp-section">
+                    <div class="dp-label">grateful for</div>
+                    <div class="dp-grateful-row">
+                        <span class="dp-grateful-num">1</span>
+                        <input class="dp-grateful-input" id="dpGrateful0" type="text"
+                               placeholder="something good..." oninput="saveGrateful(0,this.value)">
+                    </div>
+                    <div class="dp-grateful-row">
+                        <span class="dp-grateful-num">2</span>
+                        <input class="dp-grateful-input" id="dpGrateful1" type="text"
+                               placeholder="something good..." oninput="saveGrateful(1,this.value)">
+                    </div>
+                    <div class="dp-grateful-row">
+                        <span class="dp-grateful-num">3</span>
+                        <input class="dp-grateful-input" id="dpGrateful2" type="text"
+                               placeholder="something good..." oninput="saveGrateful(2,this.value)">
+                    </div>
+                </div>
+
+                <!-- Puzzle -->
+                <div class="dp-section" style="border-bottom:none">
+                    <div class="dp-label">anything puzzling you today?</div>
+                    <div class="dp-puzzle-yn">
+                        <button class="dp-puzzle-btn" id="dpPuzzleYes" onclick="setPuzzle(true)">yes</button>
+                        <button class="dp-puzzle-btn" id="dpPuzzleNo" onclick="setPuzzle(false)">no</button>
+                    </div>
+                    <div id="dpPuzzleInputWrap" style="display:none">
+                        <div class="dp-grateful-row">
+                            <input class="dp-grateful-input" id="dpPuzzleInput" type="text"
+                                   placeholder="what's on your mind?" oninput="savePuzzleText(this.value)">
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -3408,6 +3452,13 @@
             const btn = document.getElementById('dpTrigger');
             const hasContent = daily.today.tasks.length > 0 || daily.today.frog;
             btn.classList.toggle('has-content', hasContent);
+        }
+
+        function toggleJournalSection() {
+            const toggle = document.getElementById('dpJournalToggle');
+            const body   = document.getElementById('dpJournalBody');
+            const open   = toggle.classList.toggle('open');
+            body.classList.toggle('open', open);
         }
 
         function toggleDailyFullscreen() {
