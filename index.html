@@ -1372,16 +1372,27 @@
 
         .dp-log-btn {
             font-family: 'Caveat', cursive;
-            font-size: 0.88em;
+            font-size: 0.72em;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             color: #b4acaa;
             background: transparent;
-            border: none;
+            border: 1.5px solid #e4e0dc;
+            border-radius: 999px;
             cursor: pointer;
-            padding: 0;
-            transition: color 0.12s;
+            padding: 3px 10px;
+            transition: color 0.15s, border-color 0.15s, background 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .dp-log-btn:hover { color: #2c2c2c; }
+        .dp-log-btn:hover {
+            color: #6a6460;
+            border-color: #c8c4c0;
+            background: rgba(0,0,0,0.02);
+        }
 
         /* ── Feeling Log Overlay ── */
         .feel-overlay {
@@ -1867,7 +1878,8 @@
         body.dark .dp-task.done .dp-task-text { color: #4a4642; }
         body.dark .dp-add-task { color: #6a6460; border-color: #3a3632; }
         body.dark .dp-add-task:hover { color: #a09890; border-color: #5a5450; }
-        body.dark .dp-log-btn { color: #7a7068; border-color: #3a3632; }
+        body.dark .dp-log-btn { color: #7a7068; border-color: #3a3632; background: transparent; }
+        body.dark .dp-log-btn:hover { color: #a09890; border-color: #5a5450; background: rgba(255,255,255,0.03); }
         body.dark .dp-mood-trigger { background: #322e2b; border-color: #3a3632; color: #b0a89e; }
         body.dark .dp-mood-dropdown { background: #272421; border-color: #3a3632; }
         body.dark .dp-mood-option { border-color: #3a3632; }
@@ -2271,7 +2283,10 @@
 
             <!-- Mood -->
             <div class="dp-section">
-                <div class="dp-label">feeling</div>
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                    <div class="dp-label" style="margin-bottom:0">feeling</div>
+                    <button class="dp-log-btn" onclick="openFeelLog()">feeling log ↗</button>
+                </div>
                 <div class="dp-mood-wrap" id="dpMoodWrap">
                     <button class="dp-mood-trigger" id="dpMoodTrigger" onclick="toggleMoodDropdown()">
                         <span class="dp-mood-trigger-emoji" id="dpMoodTriggerEmoji"></span>
@@ -2280,9 +2295,6 @@
                     </button>
                     <div class="dp-mood-dropdown" id="dpMoodDropdown"></div>
                 </div>
-            </div>
-            <div class="dp-section" style="padding-top:10px; padding-bottom:6px;">
-                <button class="dp-log-btn" onclick="openFeelLog()">feeling log ↗</button>
             </div>
 
             <!-- 🐸 Eat the frog -->
