@@ -2315,7 +2315,7 @@
 
             <!-- Exercise -->
             <div class="dp-section">
-                <div class="dp-label">exercise today?</div>
+                <div class="dp-label">did you exercise yesterday?</div>
                 <div class="dp-puzzle-yn">
                     <button class="dp-puzzle-btn" id="dpExerciseYes" onclick="setExercise(true)">yes</button>
                     <button class="dp-puzzle-btn" id="dpExerciseNo" onclick="setExercise(false)">no</button>
@@ -3420,6 +3420,12 @@
             return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
         }
 
+        function getYesterdayKey() {
+            const d = new Date();
+            d.setDate(d.getDate() - 1);
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
+
         function getTodayDisplay() {
             return new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
         }
@@ -3741,14 +3747,22 @@
         }
 
         function setExercise(val) {
-            daily.today.workout = val;
+            const yKey = getYesterdayKey();
+            let yData = daily.history.find(h => h.key === yKey);
+            if (!yData) {
+                yData = freshDay(yKey);
+                daily.history.unshift(yData);
+            }
+            yData.workout = val;
             saveDailyData();
             renderExercise();
             if (val === true) triggerExerciseCelebration();
         }
 
         function renderExercise() {
-            const w = daily.today.workout;
+            const yKey = getYesterdayKey();
+            const yData = daily.history.find(h => h.key === yKey);
+            const w = yData?.workout ?? null;
             document.getElementById('dpExerciseYes')?.classList.toggle('sel', w === true);
             document.getElementById('dpExerciseNo')?.classList.toggle('sel',  w === false);
         }
