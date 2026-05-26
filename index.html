@@ -2329,21 +2329,6 @@
             </div>
             <div class="dp-journal-body" id="dpJournalBody">
 
-                <!-- Brain dump -->
-                <div class="dp-section">
-                    <div class="dp-label">brain dump</div>
-                    <textarea class="dp-brain-dump" id="dpBrainDump"
-                              placeholder="everything on your mind — get it out..."
-                              oninput="autoResizeBrainDump(this); saveBrainDump(this.value)"></textarea>
-                </div>
-
-                <!-- Tasklist -->
-                <div class="dp-section">
-                    <div class="dp-label">tasklist</div>
-                    <div id="dpTaskList"></div>
-                    <button class="dp-add-task" onclick="addDailyTask()">+ add task</button>
-                </div>
-
                 <!-- Gratefuls -->
                 <div class="dp-section">
                     <div class="dp-label">grateful for</div>
@@ -2362,6 +2347,21 @@
                         <input class="dp-grateful-input" id="dpGrateful2" type="text"
                                placeholder="something good..." oninput="saveGrateful(2,this.value)">
                     </div>
+                </div>
+
+                <!-- Tasklist -->
+                <div class="dp-section">
+                    <div class="dp-label">tasklist</div>
+                    <div id="dpTaskList"></div>
+                    <button class="dp-add-task" onclick="addDailyTask()">+ add task</button>
+                </div>
+
+                <!-- Brain dump -->
+                <div class="dp-section">
+                    <div class="dp-label">brain dump</div>
+                    <textarea class="dp-brain-dump" id="dpBrainDump"
+                              placeholder="everything on your mind — get it out..."
+                              oninput="autoResizeBrainDump(this); saveBrainDump(this.value)"></textarea>
                 </div>
 
                 <!-- Puzzle -->
